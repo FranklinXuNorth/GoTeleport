@@ -1,0 +1,86 @@
+.vs/
+.vsconfig
+
+# This .gitignore file should be placed at the root of your Unity project directory
+
+# =============== #
+# Unity generated #
+# =============== #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+[Ee]xport/
+.OBJ/
+.VS/
+.CSproj
+.SUO
+.USER
+.USR
+.PIDB
+.SDF
+.Session.xml
+.Stack.xml
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# ==================== #
+# Rider IDE generated #
+# ==================== #
+.idea/
+.idea*/
+
+# ======================= #
+# Visual Studio Code generated #
+# ======================= #
+.vscode/
+
+# ============== #
+# Misc/Rarely used #
+# ============== #
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+*.dll.mdb
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+
+# ============ #
+# Builds #
+# ============ #
+*.apk
+*.aab
+*.unitypackage
+
+# ============ #
+# Crashlytics #
+# ============ #
+crashlytics-build.properties
