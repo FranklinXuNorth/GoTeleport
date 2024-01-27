@@ -15,12 +15,6 @@ public class Config : MonoBehaviour
     public float throwerFiringTime;
 
     [Header("Doors")]
-    public float doorOpenTime;
-
-    [Header("Doors2")]
-    public float doorOpenTime2;
-
-    [Header("Doors3")]
-    public float doorOpenTime3;
+    public float doorOpenTime;    
 
 }
