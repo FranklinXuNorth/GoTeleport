@@ -7,29 +7,37 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
   // components
-  Config config;
   public GameObject cameraObject;
+  MeshRenderer meshRenderer;
   Rigidbody rgbd;
+  BoxCollider collider;
 
   // constants
   Vector3 RIGHT;
   Vector3 FORWARD;
-  float JUMP_SPEED;
-  float MOVE_SPEED_MAX; // not used
+  float MOVE_SPEED_MAX; // used only to calculate is dashing
+  float DASH_SPEED_MIN;
+  float DASH_SPEED_MAX;
+  float DASH_IMPULSE;
 
   // variables
   bool isOnGround;
+  bool isDashing;
+  float dashingTime;
 
   // Start is called before the first frame update
   void Start()
   {
     // initialize components
-    config = FindAnyObjectByType<Config>();
     rgbd = GetComponent<Rigidbody>();
+    meshRenderer = GetComponent<MeshRenderer>();
+    collider = GetComponent<BoxCollider>();
 
     // set constants
-    JUMP_SPEED = config.playerJumpSpeed;
-    MOVE_SPEED_MAX = config.playerMoveSpeedMax;
+    MOVE_SPEED_MAX = 10;
+    DASH_SPEED_MIN = 15;
+    DASH_SPEED_MAX = 20;
+    DASH_IMPULSE = 10;
     RIGHT = cameraObject.transform.right;
     Vector3 temp = cameraObject.transform.forward;
     FORWARD = new Vector3(temp.x, 0, temp.z);
@@ -91,17 +99,38 @@ public class PlayerMovement : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (isOnGround && Input.GetKeyDown(KeyCode.Space))
-    {
-      rgbd.AddForce(Vector3.up * JUMP_SPEED, ForceMode.Impulse);
-      // TODO: add gamepad jump
-    }
+    // if speed is greater than max, set dashing to true
+    isDashing = rgbd.velocity.magnitude > DASH_SPEED_MIN;
+    // freeze y position and rotation when is dashing
+    rgbd.constraints = isDashing ? RigidbodyConstraints.FreezePositionY : RigidbodyConstraints.None;
+    // enable emission when is dashing
+    if (isDashing)
+      meshRenderer.material.EnableKeyword("_EMISSION");
+    else
+      meshRenderer.material.DisableKeyword("_EMISSION");
+
 
     Vector3 moveDirection = getMovementInput();
-    Debug.Log(moveDirection);
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+      // set velocity to 0
+      rgbd.velocity = Vector3.zero;
+      dashingTime = 500; // 0.5 seconds
+    }
+    if (dashingTime > 0)
+    {
+      dashingTime -= Time.deltaTime * 1000;
+      // add force only if speed is smaller than max dash speed
+      if (rgbd.velocity.magnitude < DASH_SPEED_MAX)
+        rgbd.AddForce(moveDirection * DASH_IMPULSE, ForceMode.Impulse);
+      // disable collision when is dashing time is greater than 0
+      // collider.isTrigger = true;
+    } else {
+      // collider.isTrigger = false;
+    }
 
     // add force to player if move speed isn't at max
-    if (rgbd.velocity.magnitude < config.playerMoveSpeedMax)
+    if (rgbd.velocity.magnitude < MOVE_SPEED_MAX)
       rgbd.AddForce(moveDirection, ForceMode.Impulse);
   }
 }
