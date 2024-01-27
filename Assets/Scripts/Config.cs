@@ -19,4 +19,8 @@ public class Config : MonoBehaviour
 
     [Header("Doors2")]
     public float doorOpenTime2;
+
+    [Header("Doors3")]
+    public float doorOpenTime3;
+
 }
