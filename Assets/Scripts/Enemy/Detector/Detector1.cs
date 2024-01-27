@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Detector1 : MonoBehaviour
 {
+    protected Config config;
+
     // cube manager 
     protected CubeManager cubeManager;
 
@@ -31,6 +33,8 @@ public class Detector1 : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        config = FindAnyObjectByType<Config>();
+
         // instantiate cube manager
         cubeManager = FindAnyObjectByType<CubeManager>();
         allCubePos = cubeManager.GetAllCubePos();
@@ -46,6 +50,7 @@ public class Detector1 : MonoBehaviour
 
         // find all possible points within the boundary
         DetectPossiblePoints();
+
     }
 
 
@@ -78,6 +83,7 @@ public class Detector1 : MonoBehaviour
             }
         }
     }
+
 
 
 }

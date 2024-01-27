@@ -15,6 +15,10 @@ public class Config : MonoBehaviour
     public float throwerFiringTime;
 
     [Header("Doors")]
-    public float doorOpenTime;    
+    public float doorOpenTime;
+
+    [Header("Thrower Max and Min")]
+    public int minThrower;
+    public int maxThrower;
 
 }

@@ -11,15 +11,29 @@ public class Generator1 : Detector1
     public GameObject[] enemyPrefabs;
 
     // boolean space to trim
-    public BoxCollider[] trimSpaces;
+    public GameObject parentObject;
+    List<BoxCollider> trimSpaces;
+
+    // points that can generate
+    List<Vector3Int> pointGen;
 
 
     protected override void Start()
     {
         base.Start();
 
+        trimSpaces = new List<BoxCollider>();
+        pointGen = new List<Vector3Int>();
+
+        foreach (Transform child in parentObject.transform)
+        {
+            GameObject childObject = child.gameObject;
+            trimSpaces.Add(child.GetComponent<BoxCollider>());
+        }
 
         DetectOffsetSpace();
+        RanGenerate();
+        Destroy(this.gameObject);
     }
 
 
@@ -30,7 +44,6 @@ public class Generator1 : Detector1
 
         // temp list for deletion
         List<Vector3Int> pointDeletion = new List<Vector3Int>();
-        List<Vector3Int> pointGen = new List<Vector3Int>();
 
         // select one random enemy game object
         int randomIndex;
@@ -53,9 +66,9 @@ public class Generator1 : Detector1
             bool hasCube = false;
 
             // detect
-            for (int posX = (int)(genPoints.x - offsetX); posX <= (int)(genPoints.x + offsetX); posX += 2)
+            for (int posX = (int)(genPoints.x - offsetX); posX <= (int)(genPoints.x + offsetX); posX += 4)
             {
-                for (int posZ = (int)(genPoints.z - offsetZ); posZ <= (int)(genPoints.z + offsetZ); posZ += 2)
+                for (int posZ = (int)(genPoints.z - offsetZ); posZ <= (int)(genPoints.z + offsetZ); posZ += 4)
                 {
                     
                     if (!allGenPointsXZ.ContainsKey(new Vector3Int(posX, 0, posZ)))
@@ -77,7 +90,7 @@ public class Generator1 : Detector1
         }
 
         // if intersect with boolean space, keep
-        if (trimSpaces.Length != 0)
+        if (trimSpaces.Count != 0)
         {
             foreach (BoxCollider booleanSpace in trimSpaces)
             {
@@ -95,11 +108,31 @@ public class Generator1 : Detector1
 
         // adjust the height (default = 0f)
 
+        /*
         // this is used for testing if this works fine
         foreach (Vector3Int point in pointGen)
         {
             Instantiate<GameObject>(testingObject, new Vector3Int(point.x, 0, point.z), Quaternion.identity);
         }
+        */
     }
+
+
+    void RanGenerate()
+    {
+        int number = Random.Range(config.minThrower, config.maxThrower + 1);
+        while (number > 0)
+        {
+            int randomIndex = Random.Range(0, pointGen.Count);
+            int randomY = Random.Range(-1, 4);
+            Vector3 randomPoint = pointGen[randomIndex];
+
+            Vector3 randomGenPos = new Vector3(randomPoint.x, randomY, randomPoint.z);
+            Instantiate<GameObject>(enemyPrefabs[0], randomGenPos, Quaternion.identity);
+            number--;
+        }
+    }
+
+    
 
 }
