@@ -12,7 +12,7 @@ public class CubeManager : MonoBehaviour
     /// Vector2: XZ position of the cube
     /// List<Vector3>: list of cubes of the same XZ positon, but with different heights(y)
     /// </summary>
-    private Dictionary<Vector2, List<Vector3>> allCubePos;
+    private Dictionary<Vector3Int, List<Vector3Int>> allCubePos;
 
     // just for test... ignore this
     public GameObject testObject;
@@ -20,24 +20,24 @@ public class CubeManager : MonoBehaviour
     private void Awake()
     {
 
-        allCubePos = new Dictionary<Vector2, List<Vector3>>();
+        allCubePos = new Dictionary<Vector3Int, List<Vector3Int>>();
         
         // sort all entities into groups of same XZ value
         foreach (Transform cube in parentObject.transform)
         {
             // get the XZ position of the cube
-            Vector2 cubePosXZ = new Vector2(cube.transform.position.x, cube.transform.position.z);
+            Vector3Int cubePosXZ = new Vector3Int((int)cube.transform.position.x, 0, (int)cube.transform.position.z);
 
             // if there is no value in the key
             if (!allCubePos.ContainsKey(cubePosXZ))
             {
-                List<Vector3> pointsSameXZ = new List<Vector3>();
-                pointsSameXZ.Add(new Vector3((int)cube.position.x, (int)cube.position.z));
+                List<Vector3Int> pointsSameXZ = new List<Vector3Int>();
+                pointsSameXZ.Add(new Vector3Int((int)cube.position.x, 0, (int)cube.position.z));
                 allCubePos.Add(cubePosXZ, pointsSameXZ);
             } 
             else
             {
-                allCubePos[cubePosXZ].Add(new Vector3((int)cube.position.x, (int)cube.position.z));
+                allCubePos[cubePosXZ].Add(new Vector3Int((int)cube.position.x, 0, (int)cube.position.z));
             }
         }
 
@@ -69,7 +69,7 @@ public class CubeManager : MonoBehaviour
     /// return the dictionary of all cube positions
     /// </summary>
     /// <returns></returns>
-    public Dictionary<Vector2, List<Vector3>> GetAllCubePos()
+    public Dictionary<Vector3Int, List<Vector3Int>> GetAllCubePos()
     {
         return allCubePos;
     }

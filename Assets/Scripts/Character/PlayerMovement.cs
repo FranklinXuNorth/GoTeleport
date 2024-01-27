@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     Vector3 moveDirection = getMovementInput();
-    Debug.Log(moveDirection);
+    //Debug.Log(moveDirection);
 
     // add force to player if move speed isn't at max
     if (rgbd.velocity.magnitude < config.playerMoveSpeedMax)

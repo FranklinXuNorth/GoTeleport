@@ -8,9 +8,6 @@ public class Detector1 : MonoBehaviour
     // cube manager 
     CubeManager cubeManager;
 
-    // enemies to generate
-    public GameObject[] enemyPrefab;    
-
     // a trigger collider to set the boundary of detection
     private BoxCollider boundary;
     private Transform boundTransform;
@@ -19,13 +16,13 @@ public class Detector1 : MonoBehaviour
     /// <summary>
     /// a dictionary to store all the position of the cubes
     /// </summary>
-    private Dictionary<Vector2, List<Vector3>> allCubePos;
+    private Dictionary<Vector3Int, List<Vector3Int>> allCubePos;
 
     /// <summary>
     /// a dictionary to store all the possible generating position
     /// Vector3: position  bool: valid?
     /// </summary>
-    protected Dictionary<Vector3, bool> allGenPoints;
+    protected Dictionary<Vector3Int, bool> allGenPointsXZ;
 
 
     // just for testing 
@@ -39,7 +36,7 @@ public class Detector1 : MonoBehaviour
         allCubePos = cubeManager.GetAllCubePos();
 
         // instantiate the dictionary
-        allGenPoints = new Dictionary<Vector3, bool>();
+        allGenPointsXZ = new Dictionary<Vector3Int, bool>();
 
         // instantiate boundary
         boundary = GetComponent<BoxCollider>();
@@ -69,11 +66,11 @@ public class Detector1 : MonoBehaviour
         {
             for (int posZ = minZ; posZ < maxZ; posZ+=2)
             {
-                Vector2 pointXZ = new Vector2(posX, posZ);
+                Vector3Int pointXZ = new Vector3Int((int)posX, 0, (int)posZ);
 
                 if (!allCubePos.ContainsKey(pointXZ))
                 {
-                    allGenPoints[pointXZ] = true;
+                    allGenPointsXZ[pointXZ] = true;
 
                     /*
                     // this is used for testing if this works fine
@@ -82,12 +79,6 @@ public class Detector1 : MonoBehaviour
                 }
             }
         }
-    }
-
-
-    public Dictionary<Vector3, bool> GetAllGenPoint()
-    {
-        return allGenPoints;
     }
 
 
