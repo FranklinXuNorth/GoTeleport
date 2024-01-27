@@ -6,7 +6,7 @@ using UnityEngine;
 public class Detector1 : MonoBehaviour
 {
     // cube manager 
-    CubeManager cubeManager;
+    protected CubeManager cubeManager;
 
     // a trigger collider to set the boundary of detection
     private BoxCollider boundary;
@@ -54,7 +54,6 @@ public class Detector1 : MonoBehaviour
     /// </summary>
     void DetectPossiblePoints()
     {
-
         // 2d scanning XZ plane
         int minX = (int)(boundTransform.position.x - boundX / 2 + 1);
         int maxX = (int)(boundTransform.position.x + boundX / 2 - 1);
@@ -71,7 +70,6 @@ public class Detector1 : MonoBehaviour
                 if (!allCubePos.ContainsKey(pointXZ))
                 {
                     allGenPointsXZ[pointXZ] = true;
-
                     /*
                     // this is used for testing if this works fine
                     Instantiate<GameObject>(testingObject, new Vector3(posX, 1f, posZ), Quaternion.identity);
