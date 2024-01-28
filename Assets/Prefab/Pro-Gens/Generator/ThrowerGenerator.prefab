@@ -268,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testingObject: {fileID: 6293797762903908501, guid: 26a78c2895326ff44b91bf24ea47e227, type: 3}
   enemyPrefabs:
-  - {fileID: 5147123561944036247, guid: 002c9d559c3943946b398f21b1427308, type: 3}
+  - {fileID: 5147123561944036247, guid: aea0027a7bbd60fd7b8601b1e92a1cd4, type: 3}
   parentObject: {fileID: 3521741619230936640}
 --- !u!65 &7936249588784696303
 BoxCollider:
