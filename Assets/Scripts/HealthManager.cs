@@ -18,6 +18,9 @@ public class HealthManager : MonoBehaviour
     private GameObject[] players;
     private List<GameObject> playerList;
 
+    public GameObject[] player1Health;
+    public GameObject[] player2Health;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +70,8 @@ public class HealthManager : MonoBehaviour
             text1.text = $"Player 1\nHealth: {playerList[0].GetComponent<Health>().GetHealth()}";
             text2.text = "Waiting for Player 2";
 
-            teleportChance1.text = $"{playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+            // teleportChance1.text = $"{playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+            teleportChance1.text = "";
             teleportChance2.text = "";
         }
 
