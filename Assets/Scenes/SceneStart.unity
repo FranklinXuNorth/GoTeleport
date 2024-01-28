@@ -564,7 +564,7 @@ MonoBehaviour:
   maxHealth: 6
   invincibleTime: 2
   maxTeleportTime: 3
-  teleportRefillTime: 5
+  teleportRefillTime: 3
 --- !u!4 &419913401
 Transform:
   m_ObjectHideFlags: 0

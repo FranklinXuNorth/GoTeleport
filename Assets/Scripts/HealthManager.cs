@@ -4,27 +4,32 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
 
-    public TextMeshProUGUI teleportChance1;
-    public TextMeshProUGUI teleportChance2;
+    public TextMeshProUGUI text3;
+    public TextMeshProUGUI text4;
+
+    //public TextMeshProUGUI teleportChance1;
+    //public TextMeshProUGUI teleportChance2;
 
     private bool isAllJoin = false;
 
     private GameObject[] players;
     private List<GameObject> playerList;
 
-    public GameObject[] player1Health;
-    public GameObject[] player2Health;
+    public Image[] player1Health;
+    public Image[] player2Health;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerList = new List<GameObject>();
+
     }
 
     private void Update()
@@ -61,27 +66,37 @@ public class HealthManager : MonoBehaviour
         {
             text1.text = "Waiting for Player 1";
             text2.text = "Waiting for Player 2";
-            teleportChance1.text = "";
-            teleportChance2.text = "";
+            //teleportChance1.text = "";
+            //teleportChance2.text = "";
         }
 
         else if (playerList.Count == 1)
         {
-            text1.text = $"Player 1\nHealth: {playerList[0].GetComponent<Health>().GetHealth()}";
+            
+            int health0 = playerList[0].GetComponent<Health>().GetHealth(); 
+            text1.text = $"Player 1: Health {health0}";
             text2.text = "Waiting for Player 2";
 
+            text3.text = $"Teleport Time: {playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+
             // teleportChance1.text = $"{playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
-            teleportChance1.text = "";
-            teleportChance2.text = "";
+            //teleportChance1.text = "";
+            //teleportChance2.text = "";
         }
 
         else if (playerList.Count == 2)
         {
-            text1.text = $"Player 1\nHealth: {playerList[0].GetComponent<Health>().GetHealth()}";
-            text2.text = $"Player 2\nHealth: {playerList[1].GetComponent<Health>().GetHealth()}";
+            int health0 = playerList[0].GetComponent<Health>().GetHealth();
+            int health1 = playerList[1].GetComponent<Health>().GetHealth();
 
-            teleportChance1.text = $"{playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
-            teleportChance2.text = $"{playerList[1].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+            text1.text = $"Player 1: Health {health0}";
+            text2.text = $"Player 2: Health {health1}";
+
+            //teleportChance1.text = $"{playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+            //teleportChance2.text = $"{playerList[1].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+
+            text3.text = $"Teleport Time: {playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+            text4.text = $"Teleport Time: {playerList[1].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
         }
 
 
