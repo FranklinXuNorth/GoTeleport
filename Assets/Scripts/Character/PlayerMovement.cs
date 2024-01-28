@@ -62,13 +62,13 @@ public class PlayerMovement : MonoBehaviour
     currentPlayerIndex = playerObjects.Count - 1;
 
     // set constants
-    MOVE_SPEED_MAX = 10;
+    MOVE_SPEED_MAX = 15;
     DASH_SPEED_MIN = 15;
-    DASH_SPEED_MAX = 20;
-    DASH_IMPULSE = 18;
+    DASH_SPEED_MAX = 25;
+    DASH_IMPULSE = 20;
     DASH_COOLDOWN = 1000;
-    SLOW_DOWN = 0.6f;
-    TELEPORT_BULLET_MOMENT_MAX = 300;
+    SLOW_DOWN = 0.8f;
+    TELEPORT_BULLET_MOMENT_MAX = 800;
     RIGHT = cameraObject.transform.right;
     Vector3 temp = cameraObject.transform.forward;
     FORWARD = new Vector3(temp.x, 0, temp.z);
@@ -170,6 +170,10 @@ public class PlayerMovement : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+        // died if drops out of map
+        if (transform.position.y <= -2)
+            this.transform.position = new Vector3(0f, 2f, 0f);
+
     // Vector3 moveDirection = getMovementInput();
     Vector3 moveDirection = moveDirectionController;
     if (teleportController)
@@ -178,7 +182,8 @@ public class PlayerMovement : MonoBehaviour
     // slow down time if in bullet time
     if (teleportBulletMoment > 0)
     {
-      Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
+            // Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
+            Time.timeScale = 0.5f;
       teleportBulletMoment -= Time.deltaTime * 1000;
       if (teleportBulletMoment < 0)
       {
@@ -213,8 +218,10 @@ public class PlayerMovement : MonoBehaviour
     if (dashingTime > 0)
     {
       dashingTime -= Time.deltaTime * 1000;
+      collider.isTrigger = true;
       if (dashingTime < 0)
       {
+        collider.isTrigger = false;
         dashingTime = 0;
         meshRenderer.material.DisableKeyword("_EMISSION");
         // set velocity to near 0
@@ -235,11 +242,9 @@ public class PlayerMovement : MonoBehaviour
       dashingTime -= Time.deltaTime * 1000;
     }
 
-    
-
     // add force to player if move speed isn't at max
     if (rgbd.velocity.magnitude < MOVE_SPEED_MAX)
-      rgbd.AddForce(moveDirection, ForceMode.Impulse);
+      rgbd.AddForce(moveDirection * 1.2f, ForceMode.Impulse);
 
     // reset input
     ResetInput();

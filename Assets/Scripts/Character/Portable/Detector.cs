@@ -8,8 +8,6 @@ public class Detector : MonoBehaviour
     public UnityEvent onEnter;
     public UnityEvent onExit;
 
-    
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

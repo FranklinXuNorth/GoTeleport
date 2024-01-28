@@ -35,28 +35,32 @@ public class Thrower : Portable
     {
         base.Update();
 
-        if (Time.time - time > config.throwerFiringTime)
-        {            
-            canFire = true;
-        }
-
-        if (canFire && isEntered)
+        if (playerObject != null)
         {
-            time = Time.time;
-            canFire = false;            
+            if (Time.time - time > config.throwerFiringTime)
+            {
+                canFire = true;
+            }
 
-            Vector3 generatePos = new Vector3(transform.position.x,
-                transform.position.y + bxcoll.size.y / 2 + projectile.GetComponent<SphereCollider>().radius / 2 + 1f,
-                transform.position.z);
+            if (canFire && isEntered)
+            {
+                time = Time.time;
+                canFire = false;
 
-            GameObject projectile1 = Instantiate<GameObject>(projectile, generatePos, Quaternion.identity);
-            Projectile projectileScript = projectile1.GetComponent<Projectile>();
+                Vector3 generatePos = new Vector3(transform.position.x,
+                    transform.position.y + bxcoll.size.y / 2 + projectile.GetComponent<SphereCollider>().radius / 2 + 1f,
+                    transform.position.z);
 
-            Vector3 launchingDir = getLaunchDirection(playerObject.transform.position, generatePos);
+                GameObject projectile1 = Instantiate<GameObject>(projectile, generatePos, Quaternion.identity);
+                Projectile projectileScript = projectile1.GetComponent<Projectile>();
 
-            projectileScript.onLaunch.Invoke(launchingDir);
+                Vector3 launchingDir = getLaunchDirection(playerObject.transform.position, generatePos);
 
+                projectileScript.onLaunch.Invoke(launchingDir);
+
+            }
         }
+        
     }
 
     // if this is a thrower, then it float

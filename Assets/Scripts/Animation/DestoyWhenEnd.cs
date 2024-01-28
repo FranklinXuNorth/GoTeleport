@@ -24,7 +24,7 @@ public class DestoyWhenEnd : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Portable") || other.gameObject.CompareTag("Player"))
         {
-            Destroy(other.gameObject);
+            other.transform.position = new Vector3(0f, 2f, 0f);
         }
     }
 }
