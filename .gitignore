@@ -85,4 +85,4 @@ Thumbs.db
 # ============ #
 crashlytics-build.properties
 
-*.meta
+# *.meta

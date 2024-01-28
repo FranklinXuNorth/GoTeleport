@@ -48,7 +48,7 @@ public class Thrower : Portable
                 canFire = false;
 
                 Vector3 generatePos = new Vector3(transform.position.x,
-                    transform.position.y + bxcoll.size.y / 2 + projectile.GetComponent<SphereCollider>().radius / 2 + 1f,
+                    transform.position.y + bxcoll.size.y / 2 + projectile.GetComponent<SphereCollider>().radius / 2 + 2f,
                     transform.position.z);
 
                 GameObject projectile1 = Instantiate<GameObject>(projectile, generatePos, Quaternion.identity);
