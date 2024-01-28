@@ -36929,16 +36929,16 @@ MonoBehaviour:
   doorOpenTime: 1
   minThrower: 3
   maxThrower: 5
-  lazerMinTime: 3.5
-  lazerMaxTime: 4.5
-  towerMinTime: 2
+  lazerMinTime: 4
+  lazerMaxTime: 5.5
+  towerMinTime: 4
   towerMaxTime: 7.5
-  towerDuration: 5
-  lavaMinTime: 6
-  lavaMaxTime: 8.5
+  towerDuration: 5.5
+  lavaMinTime: 7
+  lavaMaxTime: 10
   lavaHintTime: 1.5
-  lazerEasyNum: 4
-  lazerHardNum: 7
+  lazerEasyNum: 2
+  lazerHardNum: 4
   towerEasyNum: 1
   towerHardNum: 2
   lavaEasyNum: 1
