@@ -103,9 +103,9 @@ public class PlayerMovement : MonoBehaviour
 
     // set constants
     MOVE_SPEED_MAX = 10;
-    DASH_SPEED_MIN = 15;
-    DASH_SPEED_MAX = 25;
-    DASH_IMPULSE = 10;
+    DASH_SPEED_MIN = 10;
+    DASH_SPEED_MAX = 20;
+    DASH_IMPULSE = 8;
     DASH_COOLDOWN = 600;
     SLOW_DOWN = 0.8f;
     TELEPORT_BULLET_MOMENT_MAX = 600;
@@ -250,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
     if (teleportBulletMoment > 0)
     {
       // Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
-            Time.timeScale = 0.4f;
+            Time.timeScale = 0.3f;
       
       teleportBulletMoment -= Time.deltaTime * 1000;
       if (teleportBulletMoment < 0)
