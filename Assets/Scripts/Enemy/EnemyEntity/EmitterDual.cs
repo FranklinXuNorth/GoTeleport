@@ -11,6 +11,8 @@ public class EmitterDual : MonoBehaviour
     GameObject emitter1;
     GameObject emitter2;
 
+    public GameObject colliderPrefab;
+
     private Vector3 emitter1Pos;
     private Vector3 emitter2Pos;
 
@@ -42,8 +44,21 @@ public class EmitterDual : MonoBehaviour
             {
                 beamGenerated = Instantiate<GameObject>(beam, Vector3.zero, Quaternion.identity);
                 LineRenderer lineRenderer =  InstantiateBeam(beamGenerated);
-                lineRenderer.SetPosition(0, new Vector3(emitter1Pos.x, 1.5f, emitter1Pos.z));
-                lineRenderer.SetPosition(1, new Vector3(emitter2Pos.x, 1.5f, emitter2Pos.z));
+
+                Vector3 startPos = new Vector3(emitter1Pos.x, 2f, emitter1Pos.z);
+                Vector3 endPos = new Vector3(emitter2Pos.x, 2f, emitter2Pos.z);
+
+                lineRenderer.SetPosition(0, startPos);
+                lineRenderer.SetPosition(1, endPos);                
+
+                Vector3 midPoint = (startPos + endPos) / 2;
+                float segmentLength = Vector3.Distance(startPos, endPos);
+                float colliderThickness = 0.5f; // 或者根据需要调整碰撞体的厚度
+
+                GameObject colliderObject = Instantiate(colliderPrefab, midPoint, Quaternion.identity, this.transform);
+                BoxCollider boxCollider = colliderObject.GetComponent<BoxCollider>();
+                boxCollider.size = new Vector3(colliderThickness, colliderThickness, segmentLength);
+                boxCollider.transform.LookAt(startPos);
 
                 isShooting = true;
                 time = Time.time;
@@ -64,8 +79,10 @@ public class EmitterDual : MonoBehaviour
     {
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
-        lineRenderer.startWidth = 0.2f;
-        lineRenderer.endWidth = 0.2f;
+        lineRenderer.startWidth = 0.5f;
+        lineRenderer.endWidth = 0.5f;
+        
+
         return lineRenderer;
     }
 
@@ -76,4 +93,7 @@ public class EmitterDual : MonoBehaviour
 
         isReady = true;
     }
+
+
+
 }

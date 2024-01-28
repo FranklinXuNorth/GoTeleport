@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4827932277022318242}
   - component: {fileID: 8294720009623247633}
   - component: {fileID: 413433437561711198}
+  - component: {fileID: 624099523843373066}
   m_Layer: 3
   m_Name: Blue
   m_TagString: Player
@@ -133,7 +134,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &8294720009623247633
 MonoBehaviour:
@@ -263,3 +264,16 @@ MonoBehaviour:
   m_DefaultActionMap: Gamepad
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &624099523843373066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977445121460560046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb26713aa355e3d4b8898f035f4cca0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderObject: {fileID: 4883662541289862889, guid: 752a4673b7025d14ca36af8a6c176a46, type: 3}

@@ -67,8 +67,8 @@ public class PlayerMovement : MonoBehaviour
     DASH_SPEED_MAX = 25;
     DASH_IMPULSE = 20;
     DASH_COOLDOWN = 1000;
-    SLOW_DOWN = 0.8f;
-    TELEPORT_BULLET_MOMENT_MAX = 800;
+    SLOW_DOWN = 0.5f;
+    TELEPORT_BULLET_MOMENT_MAX = 200;
     RIGHT = cameraObject.transform.right;
     Vector3 temp = cameraObject.transform.forward;
     FORWARD = new Vector3(temp.x, 0, temp.z);
@@ -182,8 +182,8 @@ public class PlayerMovement : MonoBehaviour
     // slow down time if in bullet time
     if (teleportBulletMoment > 0)
     {
-            // Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
-            Time.timeScale = 0.5f;
+      Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
+            
       teleportBulletMoment -= Time.deltaTime * 1000;
       if (teleportBulletMoment < 0)
       {

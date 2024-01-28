@@ -54,7 +54,9 @@ public class Thrower : Portable
                 GameObject projectile1 = Instantiate<GameObject>(projectile, generatePos, Quaternion.identity);
                 Projectile projectileScript = projectile1.GetComponent<Projectile>();
 
-                Vector3 launchingDir = getLaunchDirection(playerObject.transform.position, generatePos);
+                Vector3 deviantDir = new Vector3(playerObject.transform.position.x,
+                    playerObject.transform.position.y + 2f, playerObject.transform.position.z);
+                Vector3 launchingDir = getLaunchDirection(deviantDir, generatePos);
 
                 projectileScript.onLaunch.Invoke(launchingDir);
 

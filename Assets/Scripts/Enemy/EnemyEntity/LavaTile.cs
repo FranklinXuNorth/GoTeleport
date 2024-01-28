@@ -22,4 +22,14 @@ public class LavaTile : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            
+            Rigidbody rgbd = other.gameObject.GetComponent<Rigidbody>();
+            rgbd.AddForce(Vector3.down * 50f, ForceMode.Force);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DestoyWhenEnd : MonoBehaviour
@@ -24,7 +25,12 @@ public class DestoyWhenEnd : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Portable") || other.gameObject.CompareTag("Player"))
         {
-            other.transform.position = new Vector3(0f, 2f, 0f);
+            Vector3 force = other.transform.position - this.transform.position;
+            force.Normalize();
+
+            Rigidbody rgbd = other.gameObject.GetComponent<Rigidbody>();
+            rgbd.AddForce(force * 30f, ForceMode.Impulse);
+            rgbd.AddForce(Vector3.up * 200f, ForceMode.Impulse);
         }
     }
 }
