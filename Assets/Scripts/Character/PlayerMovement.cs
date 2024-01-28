@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
   [HideInInspector] public static List<GameObject> playerObjects;
   [HideInInspector] private GameObject cameraObject;
   [HideInInspector] private PostProcessVolume postProcessVolume;
-  [HideInInspector] private int currentPlayerIndex;
+  [HideInInspector] public int currentPlayerIndex;
   [HideInInspector] public MeshRenderer meshRenderer;
   [HideInInspector] public Rigidbody rgbd;
   [HideInInspector] public BoxCollider collider;
@@ -123,7 +123,15 @@ public class PlayerMovement : MonoBehaviour
 
     // set random albedo
     Material material = meshRenderer.material;
-    material.color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+    // material.color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+
+    if (currentPlayerIndex == 0)
+    // Blue
+      material.color = new Color(0.2f, 0.2f, 1f);
+    else
+    // Red
+      material.color = new Color(1f, 0.2f, 0.2f);
+
     meshRenderer.material = material;
 
     // set emission color
