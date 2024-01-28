@@ -252,7 +252,8 @@ public class PlayerMovement : MonoBehaviour
     // if speed is greater than max, set dashing to true
     isDashing = rgbd.velocity.magnitude > DASH_SPEED_MIN;
     // freeze y position and rotation when is dashing
-    rgbd.constraints = isDashing ? RigidbodyConstraints.FreezePositionY : RigidbodyConstraints.None;
+    rgbd.constraints = isDashing ? RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation
+     : RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
     // enable emission when is dashing, can only dashing it is not dashing
     if (dashingTime < -DASH_COOLDOWN)
     {
