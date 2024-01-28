@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     DASH_COOLDOWN = 1000;
     SLOW_DOWN = 0.8f;
     TELEPORT_BULLET_MOMENT_MAX = 800;
+    UP_IMPULSE = 100;
     RIGHT = cameraObject.transform.right;
     Vector3 temp = cameraObject.transform.forward;
     FORWARD = new Vector3(temp.x, 0, temp.z);
@@ -133,7 +134,10 @@ public class PlayerMovement : MonoBehaviour
     {
       // give up impulse if is dashing
       if (dashingTime > 0)
+      {
+        Debug.Log("dashingTime > 0");
         rgbd.AddForce(Vector3.up * UP_IMPULSE, ForceMode.Impulse);
+      }
     }
   }
 
@@ -156,11 +160,8 @@ public class PlayerMovement : MonoBehaviour
   {
 
     Collider[] hitColliders = Physics.OverlapSphere(transform.position, COLLISION_UPDATE_RADIUS, objectLayer);
-    Debug.Log("Colliders detected: " + hitColliders.Length); // Debugging line
     foreach (var hitCollider in hitColliders)
     {
-      Debug.Log("Detected: " + hitCollider.gameObject.name); // More debugging
-
       if (hitCollider.transform.position.y <= transform.position.y - transform.localScale.y / 2)
       {
         Physics.IgnoreCollision(hitCollider, collider, true);
@@ -178,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
     foreach (var hitCollider in disabledColliders)
     {
       if (hitCollider != null)
-      Physics.IgnoreCollision(hitCollider, collider, false);
+        Physics.IgnoreCollision(hitCollider, collider, false);
     }
     disabledColliders.Clear();
   }
@@ -230,8 +231,8 @@ public class PlayerMovement : MonoBehaviour
     // slow down time if in bullet time
     if (teleportBulletMoment > 0)
     {
-            // Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
-            Time.timeScale = 0.5f;
+      // Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
+      Time.timeScale = 0.5f;
       teleportBulletMoment -= Time.deltaTime * 1000;
       if (teleportBulletMoment < 0)
       {
