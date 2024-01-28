@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
   // collision
   [HideInInspector] private float COLLISION_UPDATE_RADIUS;
   [HideInInspector] private LayerMask objectLayer;
-  [HideInInspector] private List<Collider> disabledColliders;
 
   // Start is called before the first frame update
   void Start()
@@ -61,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
     postProcessVolume = cameraObject.GetComponent<PostProcessVolume>();
     vignette = postProcessVolume.profile.GetSetting<Vignette>();
     chromaticAberration = postProcessVolume.profile.GetSetting<ChromaticAberration>();
-    disabledColliders = new List<Collider>();
 
     // add self to playerObjects
     if (playerObjects == null)
@@ -127,21 +125,6 @@ public class PlayerMovement : MonoBehaviour
     dashController = false;
     teleportController = false;
   }
-
-  private void OnCollisionEnter(Collision collision)
-  {
-    if (collision.collider.gameObject.CompareTag("Floor"))
-    {
-      // give up impulse if is dashing
-      if (dashingTime > 0)
-      {
-        Debug.Log("dashingTime > 0");
-        rgbd.velocity = Vector3.zero;
-        rgbd.AddForce(Vector3.up * UP_IMPULSE, ForceMode.Impulse);
-      }
-    }
-  }
-
   private void OnCollisionStay(Collision collision)
   {
     if (collision.collider.gameObject.CompareTag("Floor"))
@@ -157,34 +140,6 @@ public class PlayerMovement : MonoBehaviour
       isOnGround = false;
     }
   }
-  private void DisableCollision()
-  {
-
-    Collider[] hitColliders = Physics.OverlapSphere(transform.position, COLLISION_UPDATE_RADIUS, objectLayer);
-    foreach (var hitCollider in hitColliders)
-    {
-      if (hitCollider.transform.position.y <= transform.position.y - transform.localScale.y / 2)
-      {
-        Physics.IgnoreCollision(hitCollider, collider, true);
-        disabledColliders.Add(hitCollider);
-      }
-      else
-      {
-        Physics.IgnoreCollision(hitCollider, collider, false);
-      }
-    }
-  }
-
-  private void EnableCollision()
-  {
-    foreach (var hitCollider in disabledColliders)
-    {
-      if (hitCollider != null)
-        Physics.IgnoreCollision(hitCollider, collider, false);
-    }
-    disabledColliders.Clear();
-  }
-
   private void Teleport()
   {
     GameObject theOtherPlayer = playerObjects[(currentPlayerIndex + 1) % playerObjects.Count];
@@ -272,22 +227,15 @@ public class PlayerMovement : MonoBehaviour
       dashingTime -= Time.deltaTime * 1000;
       if (dashingTime < 0)
       {
-        EnableCollision();
-        rgbd.useGravity = true;
         dashingTime = 0;
         meshRenderer.material.DisableKeyword("_EMISSION");
         rgbd.velocity = 0.1f * rgbd.velocity; // set velocity to near 0
       }
       else
       { // is dashing
-        // update collision to avoid collide with floor
-        DisableCollision();
-        rgbd.useGravity = false;
-
         // add force only if speed is smaller than max dash speed
         if (rgbd.velocity.magnitude < DASH_SPEED_MAX)
           rgbd.AddForce(moveDirection * DASH_IMPULSE, ForceMode.Impulse);
-        // disable collision when is dashing time is greater than 0
       }
     }
     else
