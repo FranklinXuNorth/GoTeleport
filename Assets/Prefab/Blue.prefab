@@ -162,6 +162,7 @@ MonoBehaviour:
   DASH_COOLDOWN: 0
   TELEPORT_BULLET_MOMENT_MAX: 0
   SLOW_DOWN: 0
+  UP_IMPULSE: 0
 --- !u!114 &413433437561711198
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -70,9 +70,9 @@ public class PlayerMovement : MonoBehaviour
     currentPlayerIndex = playerObjects.Count - 1;
 
     // set constants
-    MOVE_SPEED_MAX = 15;
+    MOVE_SPEED_MAX = 10;
     DASH_SPEED_MIN = 15;
-    DASH_SPEED_MAX = 25;
+    DASH_SPEED_MAX = 20;
     DASH_IMPULSE = 20;
     DASH_COOLDOWN = 1000;
     SLOW_DOWN = 0.8f;

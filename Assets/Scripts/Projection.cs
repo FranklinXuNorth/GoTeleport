@@ -14,8 +14,8 @@ public class Projection : MonoBehaviour
         lineRenderObject1 = Instantiate<GameObject>(lineRenderObject, Vector3.zero, Quaternion.identity);
         lineRenderer = lineRenderObject1.GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
-        lineRenderer.startWidth = 0.5f;
-        lineRenderer.endWidth = 0.5f;
+        lineRenderer.startWidth = 0.2f;
+        lineRenderer.endWidth = 0.2f;
     }
 
     // Update is called once per frame
