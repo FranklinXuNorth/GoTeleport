@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     DASH_COOLDOWN = 1000;
     SLOW_DOWN = 0.8f;
     TELEPORT_BULLET_MOMENT_MAX = 800;
-    UP_IMPULSE = 100;
+    UP_IMPULSE = 75;
     RIGHT = cameraObject.transform.right;
     Vector3 temp = cameraObject.transform.forward;
     FORWARD = new Vector3(temp.x, 0, temp.z);
@@ -136,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
       if (dashingTime > 0)
       {
         Debug.Log("dashingTime > 0");
+        rgbd.velocity = Vector3.zero;
         rgbd.AddForce(Vector3.up * UP_IMPULSE, ForceMode.Impulse);
       }
     }

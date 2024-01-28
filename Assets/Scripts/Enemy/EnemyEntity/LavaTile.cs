@@ -27,9 +27,8 @@ public class LavaTile : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            
             Rigidbody rgbd = other.gameObject.GetComponent<Rigidbody>();
-            rgbd.AddForce(Vector3.down * 50f, ForceMode.Force);
+            rgbd.AddForce(Vector3.down * 200f, ForceMode.Force);
         }
     }
 }
