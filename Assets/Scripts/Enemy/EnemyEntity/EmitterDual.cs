@@ -64,7 +64,7 @@ public class EmitterDual : MonoBehaviour
                 time = Time.time;
             }
 
-            if (Time.time - time >= 2f && isShooting)
+            if (Time.time - time >= 0.5 && isShooting)
             {
                 Destroy(this.gameObject);
                 Destroy(emitter1);
