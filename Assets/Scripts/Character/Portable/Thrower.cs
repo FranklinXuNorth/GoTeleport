@@ -17,12 +17,15 @@ public class Thrower : Portable
 
     bool isEntered;
 
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
 
         playerObject = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
 
         canFire = false;
         isEntered = false;
@@ -54,11 +57,14 @@ public class Thrower : Portable
                 GameObject projectile1 = Instantiate<GameObject>(projectile, generatePos, Quaternion.identity);
                 Projectile projectileScript = projectile1.GetComponent<Projectile>();
 
-                Vector3 deviantDir = new Vector3(playerObject.transform.position.x,
-                    playerObject.transform.position.y + 2f, playerObject.transform.position.z);
+                float randomOffset = Random.Range(-3, 3);
+
+                Vector3 deviantDir = new Vector3(playerObject.transform.position.x + randomOffset,
+                    playerObject.transform.position.y + randomOffset, playerObject.transform.position.z);
                 Vector3 launchingDir = getLaunchDirection(deviantDir, generatePos);
 
                 projectileScript.onLaunch.Invoke(launchingDir);
+                audioSource.Play();
 
             }
         }

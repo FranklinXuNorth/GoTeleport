@@ -20,11 +20,19 @@ public class EmitterDual : MonoBehaviour
     bool isReady = false;
     bool isEmitterGenerated = false;
     bool isShooting = false;
+    bool isFinished = false;
+
+    private AudioSource audioSource;
+    private AudioClip audioClip;
+
+    BoxCollider boxCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         time = Time.time;
+        audioSource = GetComponent<AudioSource>();
+        audioClip = audioSource.clip;
     }
 
     // Update is called once per frame
@@ -35,7 +43,9 @@ public class EmitterDual : MonoBehaviour
             if (!isEmitterGenerated)
             {
                 emitter1 = Instantiate<GameObject>(emitter, emitter1Pos, Quaternion.identity);
+                emitter1.transform.LookAt(emitter2Pos);
                 emitter2 = Instantiate<GameObject>(emitter, emitter2Pos, Quaternion.identity);
+                emitter2.transform.LookAt(emitter1Pos);
                 isEmitterGenerated = true;
             }
             
@@ -45,8 +55,8 @@ public class EmitterDual : MonoBehaviour
                 beamGenerated = Instantiate<GameObject>(beam, Vector3.zero, Quaternion.identity);
                 LineRenderer lineRenderer =  InstantiateBeam(beamGenerated);
 
-                Vector3 startPos = new Vector3(emitter1Pos.x, 2f, emitter1Pos.z);
-                Vector3 endPos = new Vector3(emitter2Pos.x, 2f, emitter2Pos.z);
+                Vector3 startPos = new Vector3(emitter1Pos.x, 1.5f, emitter1Pos.z);
+                Vector3 endPos = new Vector3(emitter2Pos.x, 1.5f, emitter2Pos.z);
 
                 lineRenderer.SetPosition(0, startPos);
                 lineRenderer.SetPosition(1, endPos);                
@@ -56,9 +66,14 @@ public class EmitterDual : MonoBehaviour
                 float colliderThickness = 0.5f; // 或者根据需要调整碰撞体的厚度
 
                 GameObject colliderObject = Instantiate(colliderPrefab, midPoint, Quaternion.identity, this.transform);
-                BoxCollider boxCollider = colliderObject.GetComponent<BoxCollider>();
+                boxCollider = colliderObject.GetComponent<BoxCollider>();
                 boxCollider.size = new Vector3(colliderThickness, colliderThickness, segmentLength);
                 boxCollider.transform.LookAt(startPos);
+
+                if (audioSource != null && !audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
 
                 isShooting = true;
                 time = Time.time;
@@ -66,11 +81,11 @@ public class EmitterDual : MonoBehaviour
 
             if (Time.time - time >= 1 && isShooting)
             {
-                Destroy(this.gameObject);
-                Destroy(emitter1);
-                Destroy(emitter2);
                 Destroy(beamGenerated);
+                Destroy(boxCollider);
+                Destroy(this.gameObject);
             }
+
         }
         
     }

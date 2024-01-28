@@ -31,6 +31,7 @@ public class Config : MonoBehaviour
 
     public float lavaMinTime;
     public float lavaMaxTime;
+    public float lavaHintTime;
 
     [Header("Generate Parameters")]
     public int lazerEasyNum;
@@ -42,7 +43,11 @@ public class Config : MonoBehaviour
     public int lavaEasyNum;
     public int lavaHardNum;
 
-
+    [Header("Health")]
+    public int maxHealth;
+    public float invincibleTime;
+    public int maxTeleportTime;
+    public float teleportRefillTime;
 
 
 }

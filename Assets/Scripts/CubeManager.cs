@@ -25,20 +25,25 @@ public class CubeManager : MonoBehaviour
         // sort all entities into groups of same XZ value
         foreach (Transform cube in parentObject.transform)
         {
-            // get the XZ position of the cube
-            Vector3Int cubePosXZ = new Vector3Int((int)cube.transform.position.x, 0, (int)cube.transform.position.z);
 
-            // if there is no value in the key
-            if (!allCubePos.ContainsKey(cubePosXZ))
+            if ((int)cube.position.y == 0)
             {
-                List<Vector3Int> pointsSameXZ = new List<Vector3Int>();
-                pointsSameXZ.Add(new Vector3Int((int)cube.position.x, 0, (int)cube.position.z));
-                allCubePos.Add(cubePosXZ, pointsSameXZ);
-            } 
-            else
-            {
-                allCubePos[cubePosXZ].Add(new Vector3Int((int)cube.position.x, 0, (int)cube.position.z));
+                // get the XZ position of the cube
+                Vector3Int cubePosXZ = new Vector3Int((int)cube.transform.position.x, 0, (int)cube.transform.position.z);
+
+                // if there is no value in the key
+                if (!allCubePos.ContainsKey(cubePosXZ))
+                {
+                    List<Vector3Int> pointsSameXZ = new List<Vector3Int>();
+                    pointsSameXZ.Add(new Vector3Int((int)cube.position.x, 0, (int)cube.position.z));
+                    allCubePos.Add(cubePosXZ, pointsSameXZ);
+                }
+                else
+                {
+                    allCubePos[cubePosXZ].Add(new Vector3Int((int)cube.position.x, 0, (int)cube.position.z));
+                }
             }
+            
         }
 
         #region Tester

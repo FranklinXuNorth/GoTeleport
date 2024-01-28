@@ -7,18 +7,26 @@ public class Generator3 : MonoBehaviour
     private Config config;
     private CubeManager cubeManager;
 
-    public GameObject testTile;
+    public GameObject lavaTile;
+    public GameObject hintTile;
 
     List<BoxCollider> volumns;
     List<Vector3Int> genPoints;
 
+    AudioSource audioSource;
+    public AudioClip audioClip;
+
     // update
     float time;
+
+    bool canDie = false;
 
     // Start is called before the first frame update
     void Start()
     {
         time = Time.time;
+
+        audioSource = GetComponent<AudioSource>();
 
         genPoints = new List<Vector3Int>();
         config = FindAnyObjectByType<Config>();
@@ -35,11 +43,31 @@ public class Generator3 : MonoBehaviour
                 volumns.Add(boxcoll);
             }
         }
-
-
         GenerateLavaArea();
-        GenerateLava();
+        GenerateHint();
 
+        time = Time.time;
+
+    }
+
+    private void Update()
+    {
+        if (Time.time - time >= config.lavaHintTime && !canDie)
+        {
+            GenerateLava();
+            audioSource.clip = audioClip;
+            audioSource.volume = 1.0f;
+            audioSource.Play();
+            time = Time.time;
+            canDie = true;
+        }
+         
+        if (canDie && Time.time - time >= 2f)
+        {
+            Destroy(this.gameObject);
+        }
+
+        
     }
 
     void GenerateLavaArea()
@@ -71,12 +99,20 @@ public class Generator3 : MonoBehaviour
         }
     }
 
+    void GenerateHint()
+    {
+        foreach (Vector3 point in genPoints)
+        {
+            Instantiate<GameObject>(hintTile, point, Quaternion.identity);
+        }
+    }
+
     void GenerateLava()
     {
         foreach (Vector3 point in genPoints)
         {
-            Instantiate<GameObject>(testTile, point, Quaternion.identity);
-        }
+            Instantiate<GameObject>(lavaTile, point, Quaternion.identity);
+        }        
     }
 }
 

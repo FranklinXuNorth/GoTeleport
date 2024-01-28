@@ -68,7 +68,7 @@ public class floorWave : MonoBehaviour
                 float noiseOffset = Time.time;
                 
                 //sample the noise relative to the position
-                float noise = Mathf.PerlinNoise(r * noiseMultiplier+ noiseOffset, c * noiseMultiplier);
+                float noise = Mathf.PerlinNoise(r * noiseMultiplier + noiseOffset, c * noiseMultiplier);
                 
                 //change the z scale (pointy axis)
                 Vector3 scale = go.transform.localScale;

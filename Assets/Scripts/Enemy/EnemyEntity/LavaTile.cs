@@ -14,21 +14,23 @@ public class LavaTile : MonoBehaviour
         time = Time.time;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Time.time - time >= 5)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Rigidbody rgbd = other.gameObject.GetComponent<Rigidbody>();
-            rgbd.AddForce(Vector3.down * 200f, ForceMode.Force);
+            if (!other.gameObject.GetComponent<PlayerMovement>().GetDashStatus())
+            {
+                Health health = other.gameObject.GetComponent<Health>();
+                health.dropHealth();
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (Time.time - time >= 3f)
+        {
+            Destroy(this.gameObject);
         }
     }
 }

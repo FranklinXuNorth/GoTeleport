@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1645168932839711659}
   - component: {fileID: 2876053148713648497}
+  - component: {fileID: 2634458510410015497}
   m_Layer: 0
   m_Name: Beam
   m_TagString: Untagged
@@ -53,7 +54,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df6dcea7f5ee77a499fa161b1cf76541, type: 2}
+  - {fileID: 2100000, guid: 2e8c4877150fc9e4ca1a1093920ca11b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,8 +107,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.18553454, b: 0.18553454, a: 1}
-      key1: {r: 1, g: 0.39308167, b: 0.39308167, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -145,3 +146,17 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2634458510410015497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947129821670767841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9648ead1634be604ea6d393299997e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLineWidth: 1
+  animationDuration: 2

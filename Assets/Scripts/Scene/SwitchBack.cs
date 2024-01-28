@@ -26,4 +26,15 @@ public class SwitchBack : MonoBehaviour
     {
         SceneManager.LoadScene("SceneEnd");
     }
+
+    public void SwitchToStart()
+    {
+        SceneManager.LoadScene("SceneStart");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }

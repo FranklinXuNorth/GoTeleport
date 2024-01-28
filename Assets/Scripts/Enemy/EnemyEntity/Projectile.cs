@@ -75,6 +75,7 @@ public class Projectile : MonoBehaviour
     public void playExplosion()
     {
         Instantiate<GameObject>(explosion, transform.position, Quaternion.identity);
+
         Destroy(this.gameObject);
     }
 
