@@ -120,7 +120,7 @@ public class Generator1 : Detector1
 
     void RanGenerate()
     {
-        int number = Random.Range(config.minThrower, config.maxThrower + 1);
+        int number = Random.Range(config.towerEasyNum, config.towerHardNum);
         while (number > 0)
         {
             int randomIndex = Random.Range(0, pointGen.Count);

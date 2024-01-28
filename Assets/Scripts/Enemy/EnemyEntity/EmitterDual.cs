@@ -38,7 +38,7 @@ public class EmitterDual : MonoBehaviour
             }
             
 
-            if (Time.time - time >= 2f && !isShooting)
+            if (Time.time - time >= 1.5 && !isShooting)
             {
                 beamGenerated = Instantiate<GameObject>(beam, Vector3.zero, Quaternion.identity);
                 LineRenderer lineRenderer =  InstantiateBeam(beamGenerated);
@@ -49,7 +49,7 @@ public class EmitterDual : MonoBehaviour
                 time = Time.time;
             }
 
-            if (Time.time - time >= 2.5f && isShooting)
+            if (Time.time - time >= 2f && isShooting)
             {
                 Destroy(this.gameObject);
                 Destroy(emitter1);

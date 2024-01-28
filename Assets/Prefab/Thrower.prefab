@@ -64,7 +64,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   is_OnFloor: 0
-  playerObject: {fileID: 0}
+  playerObject: {fileID: 3890134971822587097, guid: d59381e6ff2feb34f9ce7be5b036d762, type: 3}
   projectile: {fileID: 7956130905294933795, guid: 0ba888426caf59845ad8c915e6482ffc, type: 3}
 --- !u!65 &3009877791795085809
 BoxCollider:

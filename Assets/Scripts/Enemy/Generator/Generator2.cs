@@ -64,7 +64,7 @@ public class Generator2 : MonoBehaviour
     {
         if (canstart)
         {
-            if (Time.time - time >= 0.1 && index < allEmitters.Count)
+            if (Time.time - time >= 0.001 && index < allEmitters.Count)
             {
                 Vector3 genPosition = allEmitters[index];
                 Vector3 genPosition2 = allEmitters[index+1];
@@ -83,7 +83,7 @@ public class Generator2 : MonoBehaviour
 
     void GenerateLaserPath()
     {
-        int number = 3;
+        int number = Random.Range(config.lazerEasyNum, config.lazerHardNum);
 
         while(number > 0)
         {
@@ -134,11 +134,19 @@ public class Generator2 : MonoBehaviour
             if (Mathf.Abs(zStart.z - zEnd.z) <= 4)
                 continue;
 
-            allEmitters.Add(new Vector3(xStart.x, 1.5f, xStart.z));
-            allEmitters.Add(new Vector3(xEnd.x, 1.5f, xEnd.z));
 
-            allEmitters.Add(new Vector3(zStart.x, 1.5f, zStart.z));
-            allEmitters.Add(new Vector3(zEnd.x, 1.5f, zEnd.z));
+            int randomBool = Random.Range(0, 2);
+
+            if (randomBool == 0)
+            {
+                allEmitters.Add(new Vector3(xStart.x, 1.5f, xStart.z));
+                allEmitters.Add(new Vector3(xEnd.x, 1.5f, xEnd.z));
+            }
+            else
+            {
+                allEmitters.Add(new Vector3(zStart.x, 1.5f, zStart.z));
+                allEmitters.Add(new Vector3(zEnd.x, 1.5f, zEnd.z));
+            }
 
             number--;
         }
@@ -155,5 +163,7 @@ public class Generator2 : MonoBehaviour
         EmitterDual emitterDualSetting = gameObjectTemp.GetComponent<EmitterDual>();
         emitterDualSetting.SetEmitterPos(pos1, pos2);
     }
+
+
     
 }

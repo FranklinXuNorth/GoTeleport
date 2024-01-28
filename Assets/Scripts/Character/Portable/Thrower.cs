@@ -12,7 +12,7 @@ public class Thrower : Portable
     bool canFire;
 
     // GameObjects
-    public GameObject playerObject;
+    GameObject playerObject;
     public GameObject projectile;
 
     bool isEntered;
@@ -21,6 +21,8 @@ public class Thrower : Portable
     protected override void Start()
     {
         base.Start();
+
+        playerObject = GameObject.FindGameObjectWithTag("Player");
 
         canFire = false;
         isEntered = false;
