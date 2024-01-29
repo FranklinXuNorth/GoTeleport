@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ad2b6d3d8fc0f4494bed0fee007a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPlayerIndex: 0
   meshRenderer: {fileID: 0}
   rgbd: {fileID: 0}
   collider: {fileID: 0}
@@ -302,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleExplosion: {fileID: 2134827577118827171}
+  healthManager: {fileID: 9020120775615936623, guid: 3806a8dfceaede185980ff3953167a67, type: 3}
   audioClip: {fileID: 8300000, guid: 726451a57b6f012438ce89c03b7f28e2, type: 3}
 --- !u!82 &-1734014769869343177
 AudioSource:

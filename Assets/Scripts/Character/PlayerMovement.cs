@@ -76,8 +76,6 @@ public class PlayerMovement : MonoBehaviour
 
     clip1 = audioSource.clip;
 
-    print(1);
-
     // initialize components
     cameraObject = GameObject.Find("Camera");
     objectLayer = LayerMask.GetMask("Default");

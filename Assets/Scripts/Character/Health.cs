@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
 
   public GameObject particleExplosion;
 
+  private HealthManager healthManager;
+
   ParticleSystem particleSystem;
 
   bool canDrop = true;
@@ -35,6 +37,7 @@ public class Health : MonoBehaviour
     particleSystem = particleExplosion.GetComponent<ParticleSystem>();
     audioSource = GetComponent<AudioSource>();
     particleExplosion.SetActive(false);
+    healthManager = FindAnyObjectByType<HealthManager>();
 
     playerMovement = GetComponent<PlayerMovement>();
   }
@@ -53,6 +56,17 @@ public class Health : MonoBehaviour
         particleExplosion.SetActive(true);
         particleSystem.Play();
         dropTimer = Time.time;
+
+        // reduce health display
+        int index = playerMovement.currentPlayerIndex % 2;
+        if (index == 0)
+        {
+          healthManager.reducePlayer1Health(health);
+        }
+        else
+        {
+          healthManager.reducePlayer2Health(health);
+        }
       }
 
       if (Time.time - dropTimer >= config.invincibleTime)
