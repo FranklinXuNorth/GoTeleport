@@ -103,9 +103,9 @@ public class PlayerMovement : MonoBehaviour
 
     // set constants
     MOVE_SPEED_MAX = 10;
-    DASH_SPEED_MIN = 10;
-    DASH_SPEED_MAX = 20;
-    DASH_IMPULSE = 8;
+    DASH_SPEED_MIN = 30;
+    DASH_SPEED_MAX = 40;
+    DASH_IMPULSE = 40;
     DASH_COOLDOWN = 600;
     SLOW_DOWN = 0.8f;
     TELEPORT_BULLET_MOMENT_MAX = 600;
@@ -310,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
                 particleDash.SetActive(false);
                 dashingTime = 0;
         meshRenderer.material.DisableKeyword("_EMISSION");
-        rgbd.velocity = 0.1f * rgbd.velocity; // set velocity to near 0
+        // rgbd.velocity = 0.1f * rgbd.velocity; // set velocity to near 0
       }
       else
       { // is dashing
