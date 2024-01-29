@@ -93,6 +93,8 @@ public class PlayerMovement : MonoBehaviour
     teleportTime = 1;
     maxTeleportTime = config.maxTeleportTime;
     teleportRefillTime = config.teleportRefillTime;
+    Debug.Log("teleportRefillTime: " + teleportRefillTime + "I DON'T GET WHY THIS IS ALWAYS 10 SO I AM OVERRIDE IT");
+    teleportRefillTime = 3.0f;
     time = Time.time;
 
     if (playerObjects == null)
@@ -454,7 +456,7 @@ public class PlayerMovement : MonoBehaviour
     if (teleportTime == maxTeleportTime)
       time = Time.time;
 
-    if (teleportTime < maxTeleportTime && Time.time - time >= teleportRefillTime)
+    if (teleportTime < maxTeleportTime && (Time.time - time) >= teleportRefillTime)
     {
       teleportTime += 1;
       time = Time.time;

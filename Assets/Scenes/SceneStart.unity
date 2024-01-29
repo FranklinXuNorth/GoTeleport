@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641222, b: 0.57481664, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -564,7 +564,7 @@ MonoBehaviour:
   maxHealth: 6
   invincibleTime: 2
   maxTeleportTime: 3
-  teleportRefillTime: 3
+  teleportRefillTime: 1
 --- !u!4 &419913401
 Transform:
   m_ObjectHideFlags: 0
