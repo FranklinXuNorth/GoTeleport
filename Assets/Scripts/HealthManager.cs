@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
+  public GameObject playerPrefab;
   public TextMeshProUGUI text1;
   public TextMeshProUGUI text2;
 
@@ -31,6 +32,65 @@ public class HealthManager : MonoBehaviour
     playerList = new List<GameObject>();
 
   }
+
+  public bool KeyboardInputPlayer1() {
+    // player1 use WASD, LShift, F
+    if (Input.GetKey(KeyCode.W))
+    {
+      return true;
+    }
+    if (Input.GetKey(KeyCode.S))
+    {
+      return true;
+    }
+    if (Input.GetKey(KeyCode.A))
+    {
+      return true;
+    }
+    if (Input.GetKey(KeyCode.D))
+    {
+      return true;
+    }
+    if (Input.GetKeyDown(KeyCode.LeftShift))
+    {
+      return true;
+    }
+    if (Input.GetKeyDown(KeyCode.F))
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public bool KeyboardInputPlayer2() {
+    // player2 use P;l', RShift, K
+    if (Input.GetKey(KeyCode.P))
+    {
+      return true;
+    }
+    if (Input.GetKey(KeyCode.L))
+    {
+      return true;
+    }
+    if (Input.GetKey(KeyCode.Semicolon))
+    {
+      return true;
+    }
+    if (Input.GetKey(KeyCode.Quote))
+    {
+      return true;
+    }
+    if (Input.GetKeyDown(KeyCode.RightShift))
+    {
+      return true;
+    }
+    if (Input.GetKeyDown(KeyCode.K))
+    {
+      return true;
+    }
+    return false;
+  }
+
 
   void Start()
   {
@@ -74,6 +134,22 @@ public class HealthManager : MonoBehaviour
 
   private void Update()
   {
+    // join player for keyboard input
+    if (KeyboardInputPlayer1() && playerList.Count == 0)
+    {
+      // instantiate player 1
+      GameObject player = Instantiate(playerPrefab, new Vector3(0, 2, 0), Quaternion.identity);
+      PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+      playerMovement.isKeyboardPlayer = true;
+    }
+    if (KeyboardInputPlayer2() && playerList.Count == 1)
+    {
+      // instantiate player 2
+      GameObject player = Instantiate(playerPrefab, new Vector3(0, 2, 0), Quaternion.identity);
+      PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+      playerMovement.isKeyboardPlayer = true;
+    }
+
     // get 2 players
     if (!isAllJoin)
     {

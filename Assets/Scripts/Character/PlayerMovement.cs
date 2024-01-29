@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
   [HideInInspector] private Vector3 moveDirectionController;
   [HideInInspector] private bool dashController;
   [HideInInspector] private bool teleportController;
+  [HideInInspector] public bool isKeyboardPlayer;
 
   // collision
   [HideInInspector] private float COLLISION_UPDATE_RADIUS;
@@ -139,6 +140,68 @@ public class PlayerMovement : MonoBehaviour
     material.SetColor("_EmissionColor", emissionColor);
   }
 
+  public void KeyboardInputPlayer1()
+  {
+    if (!isKeyboardPlayer)
+      return;
+    // player1 use WASD, LShift, F
+    Vector3 md = Vector3.zero;
+    if (Input.GetKey(KeyCode.W))
+    {
+      md += FORWARD;
+    }
+    if (Input.GetKey(KeyCode.S))
+    {
+      md -= FORWARD;
+    }
+    if (Input.GetKey(KeyCode.A))
+    {
+      md -= RIGHT;
+    }
+    if (Input.GetKey(KeyCode.D))
+    {
+      md += RIGHT;
+    }
+    if (md.magnitude > 0)
+    {
+      md.Normalize();
+    }
+    moveDirectionController = md;
+    dashController = Input.GetKeyDown(KeyCode.LeftShift);
+    teleportController = Input.GetKeyDown(KeyCode.F);
+  }
+
+  public void KeyboardInputPlayer2()
+  {
+    if (!isKeyboardPlayer)
+      return;
+    // player2 use P;l', RShift, K
+    Vector3 md = Vector3.zero;
+    if (Input.GetKey(KeyCode.P))
+    {
+      md += FORWARD;
+    }
+    if (Input.GetKey(KeyCode.Semicolon))
+    {
+      md -= FORWARD;
+    }
+    if (Input.GetKey(KeyCode.L))
+    {
+      md -= RIGHT;
+    }
+    if (Input.GetKey(KeyCode.Quote))
+    {
+      md += RIGHT;
+    }
+    if (md.magnitude > 0)
+    {
+      md.Normalize();
+    }
+    moveDirectionController = md;
+    dashController = Input.GetKeyDown(KeyCode.Return);
+    teleportController = Input.GetKeyDown(KeyCode.K);
+  }
+
   public void OnMove(InputAction.CallbackContext ctx)
   {
     // print gamepad id
@@ -161,6 +224,8 @@ public class PlayerMovement : MonoBehaviour
 
   private void ResetInput()
   {
+    if (isKeyboardPlayer)
+      return;
     // moveDirectionController = Vector3.zero; // don't reset move direction
     dashController = false;
     teleportController = false;
@@ -192,8 +257,6 @@ public class PlayerMovement : MonoBehaviour
   }
   private void Teleport()
   {
-
-
     GameObject theOtherPlayer = playerObjects[(currentPlayerIndex + 1) % playerObjects.Count];
 
     Vector3 pos = transform.position;
@@ -238,6 +301,15 @@ public class PlayerMovement : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    if (currentPlayerIndex % 2 == 0)
+    {
+      KeyboardInputPlayer1();
+    }
+    else
+    {
+      KeyboardInputPlayer2();
+    }
+
     // died if drops out of map
     if (transform.position.y <= -0.5f)
     {
