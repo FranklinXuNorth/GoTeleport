@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
   [HideInInspector] public float TELEPORT_BULLET_MOMENT_MAX;
   [HideInInspector] public float SLOW_DOWN;
   [HideInInspector] public float UP_IMPULSE;
+  [HideInInspector] public float DASHING_TIME;
 
   // variables
   [HideInInspector] private bool isOnGround;
@@ -94,18 +95,31 @@ public class PlayerMovement : MonoBehaviour
     teleportRefillTime = config.teleportRefillTime;
     time = Time.time;
 
-    // add self to playerObjects
     if (playerObjects == null)
       playerObjects = new List<GameObject>();
+
+    // remove all null objects
+    for (int i = 0; i < playerObjects.Count; i++)
+    {
+      if (playerObjects[i] == null)
+      {
+        playerObjects.RemoveAt(i);
+        i--;
+      }
+    }
+
+    // add self to playerObjects
     playerObjects.Add(gameObject);
     currentPlayerIndex = playerObjects.Count - 1;
+
 
     // set constants
     MOVE_SPEED_MAX = 10;
     DASH_SPEED_MIN = 30;
-    DASH_SPEED_MAX = 40;
-    DASH_IMPULSE = 40;
-    DASH_COOLDOWN = 600;
+    DASH_SPEED_MAX = 35;
+    DASH_IMPULSE = 10;
+    DASH_COOLDOWN = 200;
+    DASHING_TIME = 200;
     SLOW_DOWN = 0.8f;
     TELEPORT_BULLET_MOMENT_MAX = 600;
     UP_IMPULSE = 75;
@@ -370,7 +384,7 @@ public class PlayerMovement : MonoBehaviour
     {
       // set velocity to 0
       rgbd.velocity = Vector3.zero;
-      dashingTime = 200; // 0.20 seconds
+      dashingTime = DASHING_TIME; // 0.20 seconds
     }
     if (dashingTime > 0)
     {
