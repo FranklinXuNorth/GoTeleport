@@ -86,15 +86,9 @@ public class Health : MonoBehaviour
   {
     if (health <= 1)
     {
-      int index = playerMovement.currentPlayerIndex;
-      if (index == 0)
-      {
-        index = 1;
-      }
-      else
-      {
-        index = 0;
-      }
+      int index = (playerMovement.currentPlayerIndex + 1) % 2;
+      // +1 to switch side
+      // %2 to make sure it's 0 or 1 (since currentPlayerIndex might be greater than 1)
       SceneManager.LoadScene("SceneEnd_" + index);
     }
     canDrop = false;

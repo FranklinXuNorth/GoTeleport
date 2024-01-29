@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
     Material material = meshRenderer.material;
     // material.color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
-    if (currentPlayerIndex == 0)
+    if (currentPlayerIndex % 2 == 0) // WARNING: could be more than 1 even if we only have 2 controllers
     // Blue
       material.color = new Color(0.2f, 0.2f, 1f);
     else
