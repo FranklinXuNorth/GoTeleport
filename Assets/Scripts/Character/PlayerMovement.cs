@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Config config;
+  Config config;
 
   // components
 
@@ -50,33 +50,33 @@ public class PlayerMovement : MonoBehaviour
   [HideInInspector] private float COLLISION_UPDATE_RADIUS;
   [HideInInspector] private LayerMask objectLayer;
 
-    // particle effect
-    public GameObject particleDash;
-    public GameObject teleportA;
-    public GameObject teleportB;
+  // particle effect
+  public GameObject particleDash;
+  public GameObject teleportA;
+  public GameObject teleportB;
 
-    // teleport threshold
-    private int teleportTime;
-    private int maxTeleportTime;
-    private float teleportRefillTime;
-    private float time;
+  // teleport threshold
+  private int teleportTime;
+  private int maxTeleportTime;
+  private float teleportRefillTime;
+  private float time;
 
-    // Audio
-    AudioSource audioSource;
-    AudioClip clip1;
-    public AudioClip clip2;
-    bool dashAudioTrigger = false;
+  // Audio
+  AudioSource audioSource;
+  AudioClip clip1;
+  public AudioClip clip2;
+  bool dashAudioTrigger = false;
 
-    // Start is called before the first frame update
-    void Start()
+  // Start is called before the first frame update
+  void Start()
   {
-        // instantiate config
-        config = FindAnyObjectByType<Config>();
-        audioSource = GetComponent<AudioSource>();
+    // instantiate config
+    config = FindAnyObjectByType<Config>();
+    audioSource = GetComponent<AudioSource>();
 
-        clip1 = audioSource.clip;
+    clip1 = audioSource.clip;
 
-        print(1);
+    print(1);
 
     // initialize components
     cameraObject = GameObject.Find("Camera");
@@ -87,16 +87,16 @@ public class PlayerMovement : MonoBehaviour
     postProcessVolume = cameraObject.GetComponent<PostProcessVolume>();
     vignette = postProcessVolume.profile.GetSetting<Vignette>();
     chromaticAberration = postProcessVolume.profile.GetSetting<ChromaticAberration>();
-        particleDash.SetActive(false);
-        teleportB.SetActive(false);
+    particleDash.SetActive(false);
+    teleportB.SetActive(false);
 
-        teleportTime = 1;
-        maxTeleportTime = config.maxTeleportTime;
-        teleportRefillTime = config.teleportRefillTime;
-        time = Time.time;
+    teleportTime = 1;
+    maxTeleportTime = config.maxTeleportTime;
+    teleportRefillTime = config.teleportRefillTime;
+    time = Time.time;
 
-        // add self to playerObjects
-        if (playerObjects == null)
+    // add self to playerObjects
+    if (playerObjects == null)
       playerObjects = new List<GameObject>();
     playerObjects.Add(gameObject);
     currentPlayerIndex = playerObjects.Count - 1;
@@ -126,10 +126,10 @@ public class PlayerMovement : MonoBehaviour
     // material.color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
     if (currentPlayerIndex % 2 == 0) // WARNING: could be more than 1 even if we only have 2 controllers
-    // Blue
+                                     // Blue
       material.color = new Color(0.2f, 0.2f, 1f);
     else
-    // Red
+      // Red
       material.color = new Color(1f, 0.2f, 0.2f);
 
     meshRenderer.material = material;
@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
   public void OnMove(InputAction.CallbackContext ctx)
   {
     // print gamepad id
-    Debug.Log(ctx.control.device.deviceId);
+    // Debug.Log(ctx.control.device.deviceId);
     Vector2 moveDirection2D = ctx.ReadValue<Vector2>();
     Vector3 moveDirection3D = new Vector3(moveDirection2D.x, 0, moveDirection2D.y);
     moveDirection3D.Normalize();
@@ -159,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
   public void OnDash(InputAction.CallbackContext ctx)
   {
     dashController = ctx.ReadValueAsButton();
-    }
+  }
 
   private void ResetInput()
   {
@@ -167,6 +167,16 @@ public class PlayerMovement : MonoBehaviour
     dashController = false;
     teleportController = false;
   }
+
+  private void OnTriggerEnter(Collider other)
+  {
+    if (other.gameObject.CompareTag("DieWall"))
+    {
+      Health health = GetComponent<Health>();
+      health.dropHealth();
+    }
+  }
+
   private void OnCollisionStay(Collision collision)
   {
     if (collision.collider.gameObject.CompareTag("Floor"))
@@ -184,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
   }
   private void Teleport()
   {
-        
+
 
     GameObject theOtherPlayer = playerObjects[(currentPlayerIndex + 1) % playerObjects.Count];
 
@@ -200,16 +210,16 @@ public class PlayerMovement : MonoBehaviour
     Vector3 angularVelocity = rgbd.angularVelocity;
     Vector3 otherAngularVelocity = theOtherPlayer.GetComponent<Rigidbody>().angularVelocity;
 
-        // switch the two
-        teleportA.SetActive(true);
-        teleportB.SetActive(true);
-        ParticleSystem particleSystemA = teleportA.GetComponent<ParticleSystem>();
-        ParticleSystem particleSystemB = teleportB.GetComponent<ParticleSystem>();
+    // switch the two
+    teleportA.SetActive(true);
+    teleportB.SetActive(true);
+    ParticleSystem particleSystemA = teleportA.GetComponent<ParticleSystem>();
+    ParticleSystem particleSystemB = teleportB.GetComponent<ParticleSystem>();
 
-        particleSystemA.Play();
-        transform.position = otherPos;
-        particleSystemB.Play();
-        theOtherPlayer.transform.position = pos;
+    particleSystemA.Play();
+    transform.position = otherPos;
+    particleSystemB.Play();
+    theOtherPlayer.transform.position = pos;
 
     transform.rotation = Quaternion.Euler(otherRotation);
     theOtherPlayer.transform.rotation = Quaternion.Euler(rotation);
@@ -222,44 +232,44 @@ public class PlayerMovement : MonoBehaviour
 
     teleportBulletMoment = TELEPORT_BULLET_MOMENT_MAX;
 
-        audioSource.clip = clip1;
-        audioSource.Play();
+    audioSource.clip = clip1;
+    audioSource.Play();
 
-    }
+  }
 
   // Update is called once per frame
   void Update()
   {
     // died if drops out of map
     if (transform.position.y <= -0.5f)
-        {
-            Health health = GetComponent<Health>();
-            health.dropHealth();
-            this.transform.position = new Vector3(0f, 2f, 0f);
-        }
+    {
+      Health health = GetComponent<Health>();
+      health.dropHealth();
+      this.transform.position = new Vector3(0f, 2f, 0f);
+    }
 
     // refill teleporting time every period of time
-        RefillTeleport();
+    RefillTeleport();
 
 
     // Vector3 moveDirection = getMovementInput();
     Vector3 moveDirection = moveDirectionController;
     if (teleportController)
-        {
-            if (teleportTime > 0)
-            {
-                teleportTime--;
-                Teleport();
-            }
-        }
-      
+    {
+      if (teleportTime > 0)
+      {
+        teleportTime--;
+        Teleport();
+      }
+    }
+
 
     // slow down time if in bullet time
     if (teleportBulletMoment > 0)
     {
       // Time.timeScale = Mathf.Min(SLOW_DOWN, ((TELEPORT_BULLET_MOMENT_MAX - teleportBulletMoment) / TELEPORT_BULLET_MOMENT_MAX));
-            Time.timeScale = 0.3f;
-      
+      Time.timeScale = 0.3f;
+
       teleportBulletMoment -= Time.deltaTime * 1000;
       if (teleportBulletMoment < 0)
       {
@@ -294,21 +304,21 @@ public class PlayerMovement : MonoBehaviour
     }
     if (dashingTime > 0)
     {
-            if (!dashAudioTrigger)
-            {
-                audioSource.clip = clip2;
-                audioSource.Play();
-                dashAudioTrigger = true;
-            }
-            
+      if (!dashAudioTrigger)
+      {
+        audioSource.clip = clip2;
+        audioSource.Play();
+        dashAudioTrigger = true;
+      }
 
-            particleDash.SetActive(true);
-            dashingTime -= Time.deltaTime * 1000;
+
+      particleDash.SetActive(true);
+      dashingTime -= Time.deltaTime * 1000;
       if (dashingTime < 0)
       {
-                dashAudioTrigger = false;
-                particleDash.SetActive(false);
-                dashingTime = 0;
+        dashAudioTrigger = false;
+        particleDash.SetActive(false);
+        dashingTime = 0;
         meshRenderer.material.DisableKeyword("_EMISSION");
         // rgbd.velocity = 0.1f * rgbd.velocity; // set velocity to near 0
       }
@@ -318,11 +328,11 @@ public class PlayerMovement : MonoBehaviour
         if (rgbd.velocity.magnitude < DASH_SPEED_MAX)
           rgbd.AddForce(moveDirection * DASH_IMPULSE, ForceMode.Impulse);
         if (rgbd.velocity.magnitude >= MOVE_SPEED_MAX)
-            {
-                Vector3 dir = rgbd.velocity;
-                dir.Normalize();
-                rgbd.velocity = dir * MOVE_SPEED_MAX;
-            }
+        {
+          Vector3 dir = rgbd.velocity;
+          dir.Normalize();
+          rgbd.velocity = dir * MOVE_SPEED_MAX;
+        }
       }
     }
     else
@@ -330,45 +340,45 @@ public class PlayerMovement : MonoBehaviour
       dashingTime -= Time.deltaTime * 1000;
     }
 
-    
+
     // add force to player if move speed isn't at max
     if (rgbd.velocity.magnitude < MOVE_SPEED_MAX)
-        {
-            rgbd.AddForce(moveDirection, ForceMode.Impulse);
-            if (rgbd.velocity.magnitude >= MOVE_SPEED_MAX)
-            {
-                Vector3 dir = rgbd.velocity;
-                dir.Normalize();
-                rgbd.velocity = dir * MOVE_SPEED_MAX;
-            }
-        }
-      
-    
+    {
+      rgbd.AddForce(moveDirection, ForceMode.Impulse);
+      if (rgbd.velocity.magnitude >= MOVE_SPEED_MAX)
+      {
+        Vector3 dir = rgbd.velocity;
+        dir.Normalize();
+        rgbd.velocity = dir * MOVE_SPEED_MAX;
+      }
+    }
+
+
 
     // reset input
     ResetInput();
   }
 
-    public bool GetDashStatus()
-    {
-        return (dashingTime > 0);
-    }
+  public bool GetDashStatus()
+  {
+    return (dashingTime > 0);
+  }
 
-    private void RefillTeleport()
-    {
-        // if filled then no need to count down
-        if (teleportTime == maxTeleportTime)
-            time = Time.time;
+  private void RefillTeleport()
+  {
+    // if filled then no need to count down
+    if (teleportTime == maxTeleportTime)
+      time = Time.time;
 
-        if (teleportTime < maxTeleportTime && Time.time - time >= teleportRefillTime)
-        {
-            teleportTime += 1;
-            time = Time.time;
-        }
-    }
-
-    public int GetRestTeleportTime()
+    if (teleportTime < maxTeleportTime && Time.time - time >= teleportRefillTime)
     {
-        return teleportTime;
+      teleportTime += 1;
+      time = Time.time;
     }
+  }
+
+  public int GetRestTeleportTime()
+  {
+    return teleportTime;
+  }
 }

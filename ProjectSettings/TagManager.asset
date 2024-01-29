@@ -7,6 +7,7 @@ TagManager:
   - Portable
   - Floor
   - Explosion
+  - DieWall
   layers:
   - Default
   - TransparentFX
