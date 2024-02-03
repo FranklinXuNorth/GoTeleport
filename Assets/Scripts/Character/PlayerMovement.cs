@@ -229,10 +229,14 @@ public class PlayerMovement : MonoBehaviour
   {
     // print gamepad id
     // Debug.Log(ctx.control.device.deviceId);
-    Vector2 moveDirection2D = ctx.ReadValue<Vector2>();
-    Vector3 moveDirection3D = new Vector3(moveDirection2D.x, 0, moveDirection2D.y);
-    moveDirection3D.Normalize();
-    moveDirectionController = moveDirection3D;
+    if (isOnGround)
+        {
+            Vector2 moveDirection2D = ctx.ReadValue<Vector2>();
+            Vector3 moveDirection3D = new Vector3(moveDirection2D.x, 0, moveDirection2D.y);
+            moveDirection3D.Normalize();
+            moveDirectionController = moveDirection3D;
+        }
+    
   }
 
   public void OnTeleport(InputAction.CallbackContext ctx)

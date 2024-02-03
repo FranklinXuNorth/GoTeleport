@@ -2139,7 +2139,7 @@ GameObject:
   - component: {fileID: 76327751}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5667,7 +5667,7 @@ GameObject:
   - component: {fileID: 180650853}
   m_Layer: 0
   m_Name: Cube (10)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7969,7 +7969,7 @@ GameObject:
   - component: {fileID: 288585108}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8556,7 +8556,7 @@ GameObject:
   - component: {fileID: 315570484}
   m_Layer: 0
   m_Name: Cube (6)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9353,7 +9353,7 @@ GameObject:
   - component: {fileID: 356220152}
   m_Layer: 0
   m_Name: Cube (5)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21481,7 +21481,7 @@ GameObject:
   - component: {fileID: 880810281}
   m_Layer: 0
   m_Name: Cube (9)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21543,7 +21543,7 @@ GameObject:
   - component: {fileID: 882277547}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27065,7 +27065,7 @@ GameObject:
   - component: {fileID: 1101056656}
   m_Layer: 0
   m_Name: Cube (7)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38474,7 +38474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6642458314154558088, guid: 297d5f1f0e9ffb24b912c7a6f6d306e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6642458314154558088, guid: 297d5f1f0e9ffb24b912c7a6f6d306e7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -40133,7 +40133,7 @@ MonoBehaviour:
   lavaMaxTime: 12
   lavaHintTime: 1.5
   lazerEasyNum: 3
-  lazerHardNum: 5
+  lazerHardNum: 6
   towerEasyNum: 1
   towerHardNum: 3
   lavaEasyNum: 1
@@ -40695,7 +40695,7 @@ GameObject:
   - component: {fileID: 1724301137}
   m_Layer: 0
   m_Name: Cube (4)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51152,7 +51152,7 @@ GameObject:
   - component: {fileID: 2126843946}
   m_Layer: 0
   m_Name: Cube (8)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
