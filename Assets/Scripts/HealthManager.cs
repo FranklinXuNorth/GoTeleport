@@ -26,8 +26,11 @@ public class HealthManager : MonoBehaviour
   public GameObject[] player1Health;
   public GameObject[] player2Health;
 
-  // Start is called before the first frame update
-  void Awake()
+    public GameObject[] player1TeleportTime;
+    public GameObject[] player2TeleportTime;
+
+    // Start is called before the first frame update
+    void Awake()
   {
     playerList = new List<GameObject>();
 
@@ -96,7 +99,45 @@ public class HealthManager : MonoBehaviour
   {
   }
 
-  public void reducePlayer1Health(int health)
+    
+
+    public void changePlayer1Teleport(int time)
+    {
+        // set number of health to active, and the rest to inactive
+        for (int i = 0; i < player1TeleportTime.Length; i++)
+        {
+            if (i < time)
+            {
+                // player1Health[i].GetComponent<SpriteRenderer>().enabled = true;
+                player1TeleportTime[i].GetComponent<Image>().enabled = true;
+            }
+            else
+            {
+                // player1Health[i].GetComponent<SpriteRenderer>().enabled = false;
+                player1TeleportTime[i].GetComponent<Image>().enabled = false;
+            }
+        }
+    }
+
+    public void changePlayer2Teleport(int time)
+    {
+        // set number of health to active, and the rest to inactive
+        for (int i = 0; i < player2TeleportTime.Length; i++)
+        {
+            if (i < time)
+            {
+                // player1Health[i].GetComponent<SpriteRenderer>().enabled = true;
+                player2TeleportTime[i].GetComponent<Image>().enabled = true;
+            }
+            else
+            {
+                // player1Health[i].GetComponent<SpriteRenderer>().enabled = false;
+                player2TeleportTime[i].GetComponent<Image>().enabled = false;
+            }
+        }
+    }
+
+    public void reducePlayer1Health(int health)
   {
     // set number of health to active, and the rest to inactive
     for (int i = 0; i < player1Health.Length; i++)
@@ -112,7 +153,7 @@ public class HealthManager : MonoBehaviour
         player1Health[i].GetComponent<Image>().enabled = false;
       }
     }
-  }
+  } 
 
   public void reducePlayer2Health(int health)
   {
@@ -180,8 +221,8 @@ public class HealthManager : MonoBehaviour
     // UI
     if (playerList.Count == 0)
     {
-      text1.text = "Waiting for Player 1";
-      text2.text = "Waiting for Player 2";
+      text1.text = "Player 1: Dash to Join";
+      text2.text = "Player 2: Dash to Join";
       //teleportChance1.text = "";
       //teleportChance2.text = "";
     }
@@ -190,10 +231,10 @@ public class HealthManager : MonoBehaviour
     {
 
       int health0 = playerList[0].GetComponent<Health>().GetHealth();
-      text1.text = $"Player 1: Health {health0}";
-      text2.text = "Waiting for Player 2";
+      text1.text = "";
+      text2.text = "Player 2: Dash to Join";
 
-      text3.text = $"Teleport Time: {playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+      // text3.text = $"Teleport Time: {playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
 
       // teleportChance1.text = $"{playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
       //teleportChance1.text = "";
@@ -201,18 +242,16 @@ public class HealthManager : MonoBehaviour
     }
 
     else if (playerList.Count == 2)
-    {
-      int health0 = playerList[0].GetComponent<Health>().GetHealth();
-      int health1 = playerList[1].GetComponent<Health>().GetHealth();
+    {    
 
-      text1.text = $"Player 1: Health {health0}";
-      text2.text = $"Player 2: Health {health1}";
+      text1.text = "";
+      text2.text = "";
 
       //teleportChance1.text = $"{playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
       //teleportChance2.text = $"{playerList[1].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
 
-      text3.text = $"Teleport Time: {playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
-      text4.text = $"Teleport Time: {playerList[1].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+      //text3.text = $"Teleport Time: {playerList[0].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
+      //text4.text = $"Teleport Time: {playerList[1].GetComponent<PlayerMovement>().GetRestTeleportTime()}";
     }
 
 

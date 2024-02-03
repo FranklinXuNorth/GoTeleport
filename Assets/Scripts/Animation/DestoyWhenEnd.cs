@@ -29,8 +29,8 @@ public class DestoyWhenEnd : MonoBehaviour
             force.Normalize();
 
             Rigidbody rgbd = other.gameObject.GetComponent<Rigidbody>();
-            rgbd.AddForce(force * 50f, ForceMode.Impulse);
-            rgbd.AddForce(Vector3.up * 28f, ForceMode.Impulse);
+            rgbd.AddForce(force * 25f, ForceMode.Impulse);
+            rgbd.AddForce(Vector3.up * 35f, ForceMode.Impulse);
         }
     }
 }

@@ -22,9 +22,10 @@ public class PlayerMovement : MonoBehaviour
   [HideInInspector] public BoxCollider collider;
   [HideInInspector] public Vignette vignette;
   [HideInInspector] public ChromaticAberration chromaticAberration;
+    [HideInInspector] public HealthManager healthManager;
 
-  // constants
-  [HideInInspector] public Vector3 RIGHT;
+    // constants
+    [HideInInspector] public Vector3 RIGHT;
   [HideInInspector] public Vector3 FORWARD;
   [HideInInspector] public float MOVE_SPEED_MAX; // used only to calculate is dashing
   [HideInInspector] public float DASH_SPEED_MIN;
@@ -69,6 +70,9 @@ public class PlayerMovement : MonoBehaviour
   public AudioClip clip2;
   bool dashAudioTrigger = false;
 
+    // tutorial
+    Tutorial tutorial = null;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -87,8 +91,11 @@ public class PlayerMovement : MonoBehaviour
     postProcessVolume = cameraObject.GetComponent<PostProcessVolume>();
     vignette = postProcessVolume.profile.GetSetting<Vignette>();
     chromaticAberration = postProcessVolume.profile.GetSetting<ChromaticAberration>();
-    particleDash.SetActive(false);
+        healthManager = FindAnyObjectByType<HealthManager>();
+        particleDash.SetActive(false);
     teleportB.SetActive(false);
+        tutorial = FindAnyObjectByType<Tutorial>();
+        print(tutorial == null);
 
     teleportTime = 1;
     maxTeleportTime = config.maxTeleportTime;
@@ -330,7 +337,10 @@ public class PlayerMovement : MonoBehaviour
     if (transform.position.y <= -0.5f)
     {
       Health health = GetComponent<Health>();
-      health.dropHealth();
+            if(tutorial == null)
+            {
+                health.dropHealth();
+            }      
       this.transform.position = new Vector3(0f, 2f, 0f);
     }
 
@@ -344,7 +354,22 @@ public class PlayerMovement : MonoBehaviour
     {
       if (teleportTime > 0)
       {
-        teleportTime--;
+        if (tutorial == null)
+        {
+            teleportTime--;
+            // reduce health display
+            int index = currentPlayerIndex % 2;
+            if (index == 0)
+            {
+                healthManager.changePlayer1Teleport(teleportTime);
+            }
+            else
+            {
+                healthManager.changePlayer2Teleport(teleportTime);
+            }
+        }
+        
+                
         Teleport();
       }
     }
@@ -456,10 +481,19 @@ public class PlayerMovement : MonoBehaviour
     if (teleportTime == maxTeleportTime)
       time = Time.time;
 
-    if (teleportTime < maxTeleportTime && (Time.time - time) >= teleportRefillTime)
+    if (teleportTime < maxTeleportTime && (Time.time - time) >= teleportRefillTime && tutorial == null)
     {
       teleportTime += 1;
-      time = Time.time;
+        int index = currentPlayerIndex % 2;
+        if (index == 0)
+        {
+            healthManager.changePlayer1Teleport(teleportTime);
+        }
+        else
+        {
+            healthManager.changePlayer2Teleport(teleportTime);
+        }
+        time = Time.time;
     }
   }
 
